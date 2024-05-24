@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Data.Entity;
+using System.Windows;
 
 namespace LibraryApplication.View
 {
