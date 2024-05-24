@@ -1,5 +1,4 @@
-﻿using LibraryApplication.Models;
-using System.Windows;
+﻿using System.Windows;
 
 namespace LibraryApplication.View
 {
@@ -19,11 +18,13 @@ namespace LibraryApplication.View
                 Password = "123",
                 UserName = "eyyüp"
             });
+
             users.Add(new User
             {
                 Password = "123",
                 UserName = "kenan"
             });
+
             foreach (var user in users)
             {
                 if (PasswordBox.Password.Equals(user.Password) && user.UserName.Equals(user.UserName))

@@ -1,4 +1,4 @@
-﻿namespace LibraryApplication.Models
+﻿namespace Data.Entity
 {
     public class User
     {

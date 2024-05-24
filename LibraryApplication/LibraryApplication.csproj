@@ -71,7 +71,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.5" />
   </ItemGroup>
 
 </Project>

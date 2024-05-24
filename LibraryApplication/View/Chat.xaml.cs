@@ -1,5 +1,4 @@
-﻿using LibraryApplication.Models;
-using System.Windows;
+﻿using System.Windows;
 
 namespace LibraryApplication.View
 {
@@ -30,7 +29,7 @@ namespace LibraryApplication.View
                 mesage_list.Items.Clear();
                 foreach (var item in messageList)
                 {
-                    mesage_list.Items.Add(item.User + " - " +item.Text);
+                    mesage_list.Items.Add(item.User + " - " + item.Text);
                 }
                 Message.Clear();
             }
