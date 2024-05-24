@@ -3,10 +3,10 @@ using System.Windows;
 
 namespace LibraryApplication.View
 {
-    public partial class LoginWindow : Window
+    public partial class Login : Window
     {
         private readonly ICollection<User> users;
-        public LoginWindow()
+        public Login()
         {
             InitializeComponent();
             users = new List<User>();
@@ -17,7 +17,7 @@ namespace LibraryApplication.View
             users.Add(new User
             {
                 Password = "123",
-                UserName = "eyyüp"
+                UserName = "eyyüp",
             });
 
             users.Add(new User

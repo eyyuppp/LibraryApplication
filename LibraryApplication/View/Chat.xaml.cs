@@ -25,7 +25,7 @@ namespace LibraryApplication.View
                     {
                         DateTime = DateTime.Now,
                         Text = message,
-                        User = "Eyyüp"
+                        User = "eyyüp"
                     });
                 mesage_list.Items.Clear();
                 foreach (var item in messageList)
