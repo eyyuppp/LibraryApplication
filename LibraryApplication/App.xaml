@@ -1,0 +1,63 @@
+﻿<Application x:Class="LibraryApplication.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LibraryApplication"
+             StartupUri="View/Login.xaml">
+    <Application.Resources>
+       
+        <!--mini butonlar-->
+        <Style x:Key="mini butonlar" TargetType="Button">
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+
+            <Setter Property="Template">
+                    <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                                         <Border Name="border"
+                                                 BorderThickness="0,0,0,0"
+                                                 BorderBrush="#FF8F8F8F"
+                                                 Background="White">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="white" />
+                                <Setter TargetName="border" Property="Background" Value="#FF0F2E80" />
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--menu butonlar-->
+        <Style x:Key="menu butonlar" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border"
+                                              BorderBrush="White"
+                                              Background="{x:Null}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border.Effect>
+                                <DropShadowEffect Color="White" ShadowDepth="0"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderThickness" Value="5,0,0,0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
+</Application>

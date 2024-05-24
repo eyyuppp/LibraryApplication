@@ -1,0 +1,202 @@
+﻿<Window x:Class="LibraryApplication.View.Library"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryApplication"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <Border Background="#FFC7C1C1" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="170"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Logo ve button-->
+            <Border Background="#FF3C4B88" Grid.Column="0" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image Source="../images/adam.png" Height="24" Width="24" IsEnabled="False"/>
+                            <Label Content="KÜTÜPHANE PROGRAMI" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            </Label>
+                        </DockPanel>
+                        <Border.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <Border Grid.Row="1">
+                        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/document.png"/>
+                                        <Setter Property="Height" Value="100"/>
+                                        <Setter Property="Width" Value="100"/>
+                                        <Style.Triggers>
+                                            <Trigger  Property="IsMouseOver" Value="True">
+                                                <Setter Property="Source" Value="../images/add_document.png"/>
+                                                <Setter Property="Width" Value="105"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!--Mini butnlar ve header-->
+            <Border Background="#FF3C4B88" Grid.Column="1" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="White" Grid.Row="0">
+                        <DockPanel Width="72" HorizontalAlignment="Right">
+                            <Button Content="-" Style="{DynamicResource mini butonlar}"/>
+                            <Button Content="x" x:Name="btn_kapat" Click="buton_kapat_click" Style="{DynamicResource mini butonlar}" Width="35"/>
+                        </DockPanel>
+                    </Border>
+                    
+                    <Border Grid.Row="1">
+                        <DockPanel>
+                            <Label Content="KÜTÜPHANEYE HOŞ GELDİNİZ" Foreground="White" FontSize="25" Margin="5,0,0,0" VerticalContentAlignment="Center"/>
+                        </DockPanel>
+                        <Border.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <Image Source="../images/ShadowPictures/altpencere2.png" Margin="235,24,-43,0" Grid.RowSpan="2"/>
+
+                </Grid>
+            </Border>
+
+
+            <!--Mini butnlar ve header-->
+            <Border Background="#FF3C4B88" Grid.Column="0" Grid.Row="1">
+                <StackPanel Margin="0,0,0,3">
+                    <Button Height="50" Style="{DynamicResource menu butonlar}" Background="#00000000">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/clipboard.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Kitap Listesi" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="50" Style="{DynamicResource menu butonlar}">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/reading.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Okuyucu Listesi" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="50" Style="{DynamicResource menu butonlar}">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/clock.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Emanet Listesi" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="50" Style="{DynamicResource menu butonlar}">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/complete.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Zamanı Dolanlar" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="50" Style="{DynamicResource menu butonlar}">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/info.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Hakkında" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Button Height="50" Style="{DynamicResource menu butonlar}">
+                        <DockPanel Width="220" Margin="15,0,0,0">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../images/setting.png"/>
+                                        <Setter Property="Height" Value="50"/>
+                                        <Setter Property="Width" Value="50"/>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="Ayarlar" Foreground="White" FontSize="20"/>
+                        </DockPanel>
+                    </Button>
+
+                    <Image Source="../images/ShadowPictures/altpencere.png" Height="140"/>
+
+                    <Canvas Cursor="Hand" >
+                        <Border Canvas.Left="70" Canvas.Top="-47" Background="#99053D76" CornerRadius="10,10,10,10">
+                            <Label Content="10.0.0.1" Foreground="White" Width="80" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Border>
+                    </Canvas>
+                </StackPanel>
+            </Border>
+
+            <!--content içerik-->
+            <Border Grid.Column="1" Grid.Row="1" Background="#FFEEEEEE">
+                <Image Source="../images/support.png" Width="50" Height="50" Margin="501,348,29,32" MouseLeftButtonDown="support_click"/>
+
+            </Border>
+        </Grid>
+    </Border>
+</Window>
