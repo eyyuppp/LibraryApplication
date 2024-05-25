@@ -1,6 +1,4 @@
 ﻿using Data.Entity;
-using Microsoft.AspNet.SignalR.Client.Hubs;
-using Microsoft.AspNetCore.SignalR.Client;
 using System.Windows;
 
 namespace LibraryApplication.View
@@ -8,11 +6,10 @@ namespace LibraryApplication.View
     public partial class Login : Window
     {
         private readonly ICollection<User> users = new List<User>();
-        private readonly Library library;
-        public Login(Library library)
+        private readonly Library library = new Library();
+        public Login()
         {
             InitializeComponent();
-            this.library = library;
         }
 
         private void Loggin_Button_Click(object sender, RoutedEventArgs e)

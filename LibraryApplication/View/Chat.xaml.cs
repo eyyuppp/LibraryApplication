@@ -1,7 +1,4 @@
 ﻿using Data.Entity;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.SignalR.Client;
-using SignalR.Hubs;
 using System.Windows;
 
 namespace LibraryApplication.View
@@ -12,11 +9,9 @@ namespace LibraryApplication.View
     public partial class Chat : Window
     {
         private readonly ICollection<Message> messageList = new List<Message>();
-        private readonly IHubContext<ChatHub> hubContext;
-        public Chat(IHubContext<ChatHub> hubContext)
+        public Chat()
         {
             InitializeComponent();
-            this.hubContext = hubContext;
         }
 
         private void send_message(object sender, System.Windows.Input.MouseButtonEventArgs e)

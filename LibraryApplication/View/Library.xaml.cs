@@ -4,11 +4,10 @@ namespace LibraryApplication.View
 {
     public partial class Library : Window
     {
-        private readonly Chat chat;
-        public Library(Chat chat)
+        private readonly Chat chat=new Chat();
+        public Library()
         {
             InitializeComponent();
-            this.chat = chat;
         }
 
         private void buton_kapat_click(object sender, RoutedEventArgs e)
