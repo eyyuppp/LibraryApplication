@@ -22,5 +22,6 @@
                 </Image.RenderTransform>
             </Image>
         </Grid>
+        <Button x:Name="button_connect" Content="Button" Canvas.Left="267" Canvas.Top="443" HorizontalAlignment="Left" VerticalAlignment="Center" Width="148" Click="connect_Click"/>
     </Canvas>
 </Window>

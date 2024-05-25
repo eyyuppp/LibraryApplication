@@ -4,7 +4,7 @@ namespace LibraryApplication.View
 {
     public partial class Library : Window
     {
-        private readonly Chat chat=new Chat();
+        private readonly Chat _chat = new Chat();
         public Library()
         {
             InitializeComponent();
@@ -17,7 +17,7 @@ namespace LibraryApplication.View
 
         private void support_click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            chat.Show();
+            _chat.Show();
             this.Close();
         }
     }

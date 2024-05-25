@@ -6,7 +6,7 @@ namespace LibraryApplication.View
     public partial class Login : Window
     {
         private readonly ICollection<User> users = new List<User>();
-        private readonly Library library = new Library();
+        private readonly Library library=new Library();
         public Login()
         {
             InitializeComponent();
