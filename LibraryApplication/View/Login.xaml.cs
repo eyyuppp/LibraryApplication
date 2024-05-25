@@ -1,15 +1,18 @@
 ﻿using Data.Entity;
+using Microsoft.AspNet.SignalR.Client.Hubs;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Windows;
 
 namespace LibraryApplication.View
 {
     public partial class Login : Window
     {
-        private readonly ICollection<User> users;
-        public Login()
+        private readonly ICollection<User> users = new List<User>();
+        private readonly Library library;
+        public Login(Library library)
         {
             InitializeComponent();
-            users = new List<User>();
+            this.library = library;
         }
 
         private void Loggin_Button_Click(object sender, RoutedEventArgs e)
@@ -30,7 +33,6 @@ namespace LibraryApplication.View
             {
                 if (PasswordBox.Password.Equals(user.Password) && user.UserName.Equals(user.UserName))
                 {
-                    Library library = new Library();
                     library.Show();
                     this.Close();
                 }

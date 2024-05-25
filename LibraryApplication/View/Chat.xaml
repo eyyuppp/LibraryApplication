@@ -9,7 +9,7 @@
     <Canvas>
         <Grid>
             <TextBox x:Name="Message" FontSize="20" HorizontalAlignment="Left" Margin="173,361,0,0" VerticalAlignment="Top" Width="428" Height="32" RenderTransformOrigin="0.5,-0.547"/>
-            <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,532,81" Background="#FF6865BF"/>
+            <ListBox x:Name="user_list"  d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,532,81" Background="#FF6865BF"/>
             <ListBox x:Name="mesage_list" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="173,22,35,103"/>
             <Image Source="../images/send.png" Width="30" Margin="619,360,37,39" RenderTransformOrigin="0.769,1.293" MouseLeftButtonDown="send_message">
                 <Image.RenderTransform>

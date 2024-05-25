@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApplication", "Libra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{F8383561-5745-4222-BA98-55D6616D2601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR", "SignalR\SignalR.csproj", "{C497D19D-EBF8-4ABD-A089-0BBAF3C5CB4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySignalR", "LibrarySignalR\LibrarySignalR.csproj", "{6A70B2A7-620E-4803-B2EF-AEE3C69184EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F8383561-5745-4222-BA98-55D6616D2601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8383561-5745-4222-BA98-55D6616D2601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8383561-5745-4222-BA98-55D6616D2601}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C497D19D-EBF8-4ABD-A089-0BBAF3C5CB4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C497D19D-EBF8-4ABD-A089-0BBAF3C5CB4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C497D19D-EBF8-4ABD-A089-0BBAF3C5CB4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C497D19D-EBF8-4ABD-A089-0BBAF3C5CB4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A70B2A7-620E-4803-B2EF-AEE3C69184EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A70B2A7-620E-4803-B2EF-AEE3C69184EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A70B2A7-620E-4803-B2EF-AEE3C69184EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A70B2A7-620E-4803-B2EF-AEE3C69184EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
