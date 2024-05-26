@@ -21,7 +21,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
+            <Button x:Name="button_connect" Content="Button" Canvas.Left="267" Canvas.Top="443" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Click="connect_Click" Margin="264,409,0,0"/>
         </Grid>
-        <Button x:Name="button_connect" Content="Button" Canvas.Left="267" Canvas.Top="443" HorizontalAlignment="Left" VerticalAlignment="Center" Width="148" Click="connect_Click"/>
     </Canvas>
 </Window>

@@ -47,25 +47,14 @@ namespace LibraryApplication.View
                 {
                     var newMessage = "Bağlandı kesild,";
                     mesage_list.Items.Add(newMessage);
+                    button_connect.IsEnabled=true;
                 });
                 return Task.CompletedTask;
             };
         }
       
 
-        private async void send_message(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await connection.InvokeAsync("ChatMessage", Message.Text);
-            }
-            catch (Exception ex)
-            {
-                mesage_list.Items.Add(ex.Message);
-                throw;
-            }
-            
-        }
+       
 
         private async void connect_Click(object sender, RoutedEventArgs e)
         {
@@ -82,6 +71,20 @@ namespace LibraryApplication.View
                 await connection.StartAsync();
                 user_list.Items.Add("bağlantı başarılı");
                 user_list.Items.Add(connection.ConnectionId);
+                button_connect.IsEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                mesage_list.Items.Add(ex.Message);
+                throw;
+            }
+        }
+
+        private async void send_message(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                await connection.InvokeAsync("SendMessage", Message.Text);
             }
             catch (Exception ex)
             {
