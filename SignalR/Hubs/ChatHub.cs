@@ -7,7 +7,7 @@ namespace SignalR.Hubs
     {
         public async Task SendMessage(string message)
         {
-            await Clients.All.SendAsync("sendmessage", message);
+            await Clients.All.SendAsync("ReceiveMessage", message);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace LibraryApplication.View
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    var newMessage = "Bağlanıyor";
+                    var newMessage = "Yeniden Bağlanıyor";
                     mesage_list.Items.Add(newMessage);
                 });
                 return Task.CompletedTask;
@@ -34,7 +34,7 @@ namespace LibraryApplication.View
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    var newMessage = "Bağlandı";
+                    var newMessage = "Yeniden bağlandı";
                     mesage_list.Items.Clear();
                     mesage_list.Items.Add(newMessage);
                 });
@@ -45,7 +45,7 @@ namespace LibraryApplication.View
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    var newMessage = "Bağlandı kesild,";
+                    var newMessage = "Bağlantı kesildi";
                     mesage_list.Items.Add(newMessage);
                     button_connect.IsEnabled=true;
                 });
@@ -58,10 +58,11 @@ namespace LibraryApplication.View
 
         private async void connect_Click(object sender, RoutedEventArgs e)
         {
-            connection.On<Message>("sendmessage", (Message) => {
+            connection.On<string>("ReceiveMessage", (message) => {
                 this.Dispatcher.Invoke(() => {
-                    var newNessage = $"{Message.User}:{Message.Text}";
+                    var newNessage = $"{message}";
                     mesage_list.Items.Add(newNessage);
+                    Message.Clear();
                 });
 
             });
@@ -69,7 +70,6 @@ namespace LibraryApplication.View
             try
             {
                 await connection.StartAsync();
-                user_list.Items.Add("bağlantı başarılı");
                 user_list.Items.Add(connection.ConnectionId);
                 button_connect.IsEnabled = false;
             }
