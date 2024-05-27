@@ -1,5 +1,4 @@
 ﻿using Data.Entity;
-using LibraryApplication.Helper;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -8,13 +7,16 @@ namespace LibraryApplication.View
 {
     public partial class Chat : Window
     {
-        private readonly ICollection<Message> messageList = new List<Message>();
         public ObservableCollection<User> Users { get; set; }
-        private HubConnection connection;
+        private HubConnection _connection;
         public Chat()
         {
             InitializeComponent();
-            Connection.ConnectionSignalR(connection, this);
+            _connection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7109/chathub")
+            .WithAutomaticReconnect()
+            .Build();
+            //Connection.ConnectionSignalR(_connection,);
 
 
             Users = new ObservableCollection<User>
@@ -31,7 +33,7 @@ namespace LibraryApplication.View
         {
             try
             {
-                await connection.InvokeAsync("SendMessage", Message.Text);
+                await _connection.InvokeAsync("SendMessage", Message.Text);
             }
             catch (Exception ex)
             {
@@ -44,7 +46,7 @@ namespace LibraryApplication.View
         {
             try
             {
-                await connection.InvokeAsync("SendSingletonMessage", Message.Text,connection.ConnectionId);
+                await _connection.InvokeAsync("SendSingletonMessage", Message.Text, _connection.ConnectionId);
             }
             catch (Exception ex)
             {
@@ -55,7 +57,7 @@ namespace LibraryApplication.View
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            connection.On<string>("ReceiveMessage", (message) =>
+            _connection.On<string>("ReceiveMessage", (message) =>
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -67,7 +69,8 @@ namespace LibraryApplication.View
             });
             try
             {
-                await connection.StartAsync();
+                await _connection.InvokeAsync("SendMessage", Message.Text);
+                await _connection.StartAsync();
             }
             catch (Exception ex)
             {
