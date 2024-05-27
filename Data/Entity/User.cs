@@ -5,5 +5,6 @@
         public string Password { get; set; }
         public string UserName { get; set; }
         public bool Active { get; set; }
+        public string Photo { get; set; }
     }
 }

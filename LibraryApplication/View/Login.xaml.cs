@@ -6,7 +6,7 @@ namespace LibraryApplication.View
     public partial class Login : Window
     {
         private readonly ICollection<User> users = new List<User>();
-        private readonly Library library=new Library();
+        private readonly Library library = new Library();
         public Login()
         {
             InitializeComponent();
@@ -17,19 +17,30 @@ namespace LibraryApplication.View
             users.Add(new User
             {
                 Password = "123",
-                UserName = "eyyüp",
+                UserName = "Eyyüp",
+                Active = false
             });
 
             users.Add(new User
             {
                 Password = "123",
-                UserName = "kenan"
+                UserName = "Kenan",
+                Active= false
             });
+
+            users.Add(new User
+            {
+                Password = "123",
+                UserName = "Aleyna",
+                Active=false
+            });
+
 
             foreach (var user in users)
             {
                 if (PasswordBox.Password.Equals(user.Password) && user.UserName.Equals(user.UserName))
                 {
+                    user.Active = true;
                     library.Show();
                     this.Close();
                 }

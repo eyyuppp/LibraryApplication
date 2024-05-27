@@ -1,77 +1,37 @@
 ﻿using Data.Entity;
+using LibraryApplication.Helper;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace LibraryApplication.View
 {
-    /// <summary>
-    /// Interaction logic for Chat.xaml
-    /// </summary>
     public partial class Chat : Window
     {
         private readonly ICollection<Message> messageList = new List<Message>();
+        public ObservableCollection<User> Users { get; set; }
         private HubConnection connection;
         public Chat()
         {
             InitializeComponent();
+            Connection.ConnectionSignalR(connection, this);
 
-            connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7109/chathub")
-                .WithAutomaticReconnect()
-                .Build();
 
-            connection.Reconnecting += (sender) =>
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    var newMessage = "Yeniden Bağlanıyor";
-                    mesage_list.Items.Add(newMessage);
-                });
-                return Task.CompletedTask;
-            };
-
-            connection.Reconnected += (sender) =>
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    var newMessage = "Yeniden bağlandı";
-                    mesage_list.Items.Clear();
-                    mesage_list.Items.Add(newMessage);
-                });
-                return Task.CompletedTask;
-            };
-
-            connection.Closed += (sender) =>
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    var newMessage = "Bağlantı kesildi";
-                    mesage_list.Items.Add(newMessage);
-                    button_connect.IsEnabled=true;
-                });
-                return Task.CompletedTask;
-            };
-        }
-      
-
-       
-
-        private async void connect_Click(object sender, RoutedEventArgs e)
+            Users = new ObservableCollection<User>
         {
-            connection.On<string>("ReceiveMessage", (message) => {
-                this.Dispatcher.Invoke(() => {
-                    var newNessage = $"{message}";
-                    mesage_list.Items.Add(newNessage);
-                    Message.Clear();
-                });
+            new User { UserName = "Eyyup", Photo = "../images/eyyup.png"},
+            new User { UserName = "Kenan", Photo = "../images/kenan.png"},
+            new User { UserName = "Aleyna", Photo = "../images/aleyna.png"}
+        };
+            UserListView.ItemsSource = Users;
+        }
 
-            });
 
+        private async void send_message(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
             try
             {
-                await connection.StartAsync();
-                user_list.Items.Add(connection.ConnectionId);
-                button_connect.IsEnabled = false;
+                await connection.InvokeAsync("SendMessage", Message.Text);
             }
             catch (Exception ex)
             {
@@ -80,11 +40,34 @@ namespace LibraryApplication.View
             }
         }
 
-        private async void send_message(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void UserListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             try
             {
-                await connection.InvokeAsync("SendMessage", Message.Text);
+                await connection.InvokeAsync("SendSingletonMessage", Message.Text,connection.ConnectionId);
+            }
+            catch (Exception ex)
+            {
+                mesage_list.Items.Add(ex.Message);
+                throw;
+            }
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            connection.On<string>("ReceiveMessage", (message) =>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    var newNessage = $"{message}";
+                    mesage_list.Items.Add(newNessage);
+                    Message.Clear();
+                });
+
+            });
+            try
+            {
+                await connection.StartAsync();
             }
             catch (Exception ex)
             {

@@ -6,12 +6,28 @@
         xmlns:local="clr-namespace:LibraryApplication.View"
         mc:Ignorable="d"
         Title="Chat" Height="500" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Canvas>
+    <Canvas Background="#FFE0E0E0">
         <Grid>
-            <TextBox x:Name="Message" FontSize="20" HorizontalAlignment="Left" Margin="173,361,0,0" VerticalAlignment="Top" Width="428" Height="32" RenderTransformOrigin="0.5,-0.547"/>
-            <ListBox x:Name="user_list"  d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,532,81" Background="#FF6865BF"/>
-            <ListBox x:Name="mesage_list" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="173,22,35,103"/>
-            <Image Source="../images/send.png" Width="30" Margin="619,360,37,39" RenderTransformOrigin="0.769,1.293" MouseLeftButtonDown="send_message">
+            <ListView x:Name="UserListView" Margin="0,22,0,103" HorizontalAlignment="Left" Width="157" Background="#FF6865BF" SelectionChanged="UserListView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <!-- Kullanıcı adı ve fotoğrafı sütunu -->
+                        <GridViewColumn Header="KİŞİLERİM" Width="150" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Height="30">
+                                        <Image Source="{Binding Photo}" Width="30" Height="30"/>
+                                        <TextBlock Text="{Binding UserName}" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="White"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox x:Name="Message" FontSize="20" HorizontalAlignment="Left" Margin="173,361,0,0" VerticalAlignment="Top" Width="428" Height="32" RenderTransformOrigin="0.5,-0.547" Background="White"/>
+            <ListBox x:Name="mesage_list" Margin="178,22,35,103" Background="#FF6865BF"/>
+            <Image Source="../images/send.png" Width="30" Margin="619,358,37,51" RenderTransformOrigin="0.769,1.293" MouseLeftButtonDown="send_message">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -21,7 +37,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Button x:Name="button_connect" Content="Button" Canvas.Left="267" Canvas.Top="443" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Click="connect_Click" Margin="264,409,0,0"/>
+            <Button Content="Bağlan" HorizontalAlignment="Left" Margin="296,429,0,0" Width="185" Background="#FF6865BF" Click="Button_Click"/>
         </Grid>
     </Canvas>
 </Window>
