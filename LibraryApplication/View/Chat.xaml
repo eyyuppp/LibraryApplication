@@ -37,7 +37,6 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Button Content="Bağlan" HorizontalAlignment="Left" Margin="296,429,0,0" Width="185" Background="#FF6865BF" Click="Button_Click"/>
         </Grid>
     </Canvas>
 </Window>

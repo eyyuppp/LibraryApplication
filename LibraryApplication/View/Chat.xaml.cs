@@ -16,16 +16,16 @@ namespace LibraryApplication.View
             .WithUrl("https://localhost:7109/chathub")
             .WithAutomaticReconnect()
             .Build();
-            //Connection.ConnectionSignalR(_connection,);
 
 
             Users = new ObservableCollection<User>
         {
-            new User { UserName = "Eyyup", Photo = "../images/eyyup.png"},
-            new User { UserName = "Kenan", Photo = "../images/kenan.png"},
-            new User { UserName = "Aleyna", Photo = "../images/aleyna.png"}
+            new User {Id="1", UserName = "Eyyup", Photo = "../images/eyyup.png"},
+            new User {Id="2",UserName = "Kenan", Photo = "../images/kenan.png"},
+            new User {Id="3", UserName = "Aleyna", Photo = "../images/aleyna.png"}
         };
             UserListView.ItemsSource = Users;
+            ConnectSignalR();
         }
 
 
@@ -33,7 +33,8 @@ namespace LibraryApplication.View
         {
             try
             {
-                await _connection.InvokeAsync("SendMessage", Message.Text);
+               // await _connection.InvokeAsync("SendMessage", Message.Text);
+                await _connection.InvokeAsync("SendSingletonMessage", Message.Text, Message.Text);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,13 @@ namespace LibraryApplication.View
         {
             try
             {
-                await _connection.InvokeAsync("SendSingletonMessage", Message.Text, _connection.ConnectionId);
+                var selectedUser = UserListView.SelectedItem as User;
+                if (selectedUser != null)
+                {
+                    Message.Text = selectedUser.Id;
+                    mesage_list.Items.Clear();
+                }
+
             }
             catch (Exception ex)
             {
@@ -55,8 +62,10 @@ namespace LibraryApplication.View
             }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void ConnectSignalR()
         {
+            try
+            {
             _connection.On<string>("ReceiveMessage", (message) =>
             {
                 this.Dispatcher.Invoke(() =>
@@ -67,9 +76,6 @@ namespace LibraryApplication.View
                 });
 
             });
-            try
-            {
-                await _connection.InvokeAsync("SendMessage", Message.Text);
                 await _connection.StartAsync();
             }
             catch (Exception ex)

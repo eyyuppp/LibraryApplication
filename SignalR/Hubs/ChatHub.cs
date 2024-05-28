@@ -1,5 +1,4 @@
-﻿using Data.Entity;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 
 namespace SignalR.Hubs
 {
@@ -10,9 +9,9 @@ namespace SignalR.Hubs
             await Clients.All.SendAsync("ReceiveMessage", message);
         }
 
-        public async Task SendSingletonMessage(string message ,string connectionId)
+        public async Task SendSingletonMessage(string message, string UserID)
         {
-            await Clients.Client(connectionId).SendAsync(message, connectionId);
+            await Clients.User(UserID).SendAsync(message, UserID);
         }
     }
 }
