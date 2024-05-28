@@ -1,54 +1,41 @@
-﻿using Data.Entity;
+﻿using LibraryApplication.Helper;
+using Microsoft.AspNetCore.SignalR.Client;
+using System.Diagnostics;
 using System.Windows;
 
 namespace LibraryApplication.View
 {
     public partial class Login : Window
     {
-        private readonly ICollection<User> users = new List<User>();
-        private readonly Library library = new Library();
+
         public Login()
         {
             InitializeComponent();
-        }
 
-        private void Loggin_Button_Click(object sender, RoutedEventArgs e)
-        {
-            users.Add(new User
+            ConnectionHelper.Connection.On<bool>("LoginResult", isSuccess =>
             {
-                Password = "123",
-                UserName = "Eyyüp",
-                Active = false
-            });
-
-            users.Add(new User
-            {
-                Password = "123",
-                UserName = "Kenan",
-                Active= false
-            });
-
-            users.Add(new User
-            {
-                Password = "123",
-                UserName = "Aleyna",
-                Active=false
-            });
-
-
-            foreach (var user in users)
-            {
-                if (PasswordBox.Password.Equals(user.Password) && user.UserName.Equals(user.UserName))
+                if (isSuccess)
                 {
-                    user.Active = true;
-                    library.Show();
-                    this.Close();
+                    
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        ConnectionHelper.SetLoggedUser(new Data.Entity.User() { UserName = UserNameTextBox.Text, Password = PasswordBox.Password });
+                        Library library = new Library();
+                        library.Show();
+                        this.Close();
+                    });
                 }
                 else
                 {
-                    MessageBox.Show("kullanıcı adı veya şifrenizi hatalı girdiniz", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Kullanıcı username veya password hatalı girdiniz");
                 }
-            }
+            });
+        }
+
+        private async void Loggin_Button_Click(object sender, RoutedEventArgs e)
+        {
+          
+            await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
         }
     }
 }

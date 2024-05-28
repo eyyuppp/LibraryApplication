@@ -1,5 +1,4 @@
-﻿using LibraryApplication.View;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using LibraryApplication.Helper;
 using System.Windows;
 
 namespace LibraryApplication
@@ -9,7 +8,10 @@ namespace LibraryApplication
     /// </summary>
     public partial class App : Application
     {
-      
+        public App()
+        {
+            ConnectionHelper.Connect();
+        }
     }
 
 }

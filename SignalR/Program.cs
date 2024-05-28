@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.ResponseCompression;
 using SignalR.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
