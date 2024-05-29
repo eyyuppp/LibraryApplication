@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using Data.Entity;
+using LibraryApplication.Helper;
+using Microsoft.AspNetCore.SignalR.Client;
+using System.Windows;
 
 namespace LibraryApplication.View
 {
@@ -17,6 +20,7 @@ namespace LibraryApplication.View
 
         private void support_click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+
             _chat.Show();
             this.Close();
         }

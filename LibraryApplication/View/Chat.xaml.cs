@@ -40,7 +40,7 @@ namespace LibraryApplication.View
             try
             {
                 var selectedUser = UserListView.SelectedItem as User;
-                if (selectedUser != null)
+                if (selectedUser != null && Message.Text!=null)
                 {
                     await ConnectionHelper.Connection.SendAsync("SendMessage", ConnectionHelper.LoggedUser.UserName, selectedUser.UserName, Message.Text);
                 }
