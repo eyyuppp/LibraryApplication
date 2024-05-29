@@ -7,6 +7,7 @@ namespace LibraryApplication.View
 {
     public partial class Chat : Window
     {
+        //aktif kullanıcıları redise ekle ve amdin her 1 dk da slm mesajı atsın
         public Chat()
         {
             InitializeComponent();
@@ -38,7 +39,11 @@ namespace LibraryApplication.View
             ConnectionHelper.Connection.SendAsync("GetAllActiveUsers");
         }
 
-
+        /// <summary>
+        /// mesaj gönderir
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void send_message(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
@@ -56,7 +61,11 @@ namespace LibraryApplication.View
                 throw;
             }
         }
-
+        /// <summary>
+        /// chat ekranından çıkış yapar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void exit(object sender, RoutedEventArgs e)
         {
             await ConnectionHelper.Connection.InvokeAsync("LogOut", ConnectionHelper.LoggedUser.UserName);
