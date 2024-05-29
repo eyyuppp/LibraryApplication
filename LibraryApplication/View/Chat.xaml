@@ -37,6 +37,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
+            <Button Content="Çıkış Yap" Click="exit" HorizontalAlignment="Left" Margin="281,409,0,0" VerticalAlignment="Top" Width="193" Background="#FF6865BF"/>
         </Grid>
     </Canvas>
 </Window>

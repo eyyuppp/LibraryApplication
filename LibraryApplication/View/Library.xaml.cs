@@ -1,7 +1,4 @@
-﻿using Data.Entity;
-using LibraryApplication.Helper;
-using Microsoft.AspNetCore.SignalR.Client;
-using System.Windows;
+﻿using System.Windows;
 
 namespace LibraryApplication.View
 {

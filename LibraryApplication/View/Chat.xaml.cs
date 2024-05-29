@@ -14,8 +14,11 @@ namespace LibraryApplication.View
             {
                 Dispatcher.Invoke(() =>
                 {
-                    mesage_list.Items.Add($"{senderUserName}:{message}");
-                    Message.Clear();
+                    if (senderUserName != ConnectionHelper.LoggedUser.UserName)
+                    {
+                        mesage_list.Items.Add($"{senderUserName} : {message}");
+                        Message.Clear();
+                    }
                 });
             });
 
@@ -31,6 +34,7 @@ namespace LibraryApplication.View
                 });
             });
 
+
             ConnectionHelper.Connection.SendAsync("GetAllActiveUsers");
         }
 
@@ -40,9 +44,10 @@ namespace LibraryApplication.View
             try
             {
                 var selectedUser = UserListView.SelectedItem as User;
-                if (selectedUser != null && Message.Text!=null)
+                if (selectedUser != null && Message.Text != null)
                 {
                     await ConnectionHelper.Connection.SendAsync("SendMessage", ConnectionHelper.LoggedUser.UserName, selectedUser.UserName, Message.Text);
+                    Message.Clear();
                 }
             }
             catch (Exception ex)
@@ -50,6 +55,13 @@ namespace LibraryApplication.View
                 mesage_list.Items.Add(ex.Message);
                 throw;
             }
+        }
+
+        private async void exit(object sender, RoutedEventArgs e)
+        {
+            await ConnectionHelper.Connection.InvokeAsync("LogOut", ConnectionHelper.LoggedUser.UserName);
+            await ConnectionHelper.Connection.SendAsync("GetAllActiveUsers");
+            this.Close();
         }
     }
 }
