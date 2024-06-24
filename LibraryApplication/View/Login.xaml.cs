@@ -7,11 +7,10 @@ namespace LibraryApplication.View
 {
     public partial class Login : Window
     {
-
+        public readonly ICacheRepository _cacheRepository;
         public Login()
         {
             InitializeComponent();
-
             ConnectionHelper.Connection.On<bool>("LoginResult", isSuccess =>
             {
                 if (isSuccess)
@@ -38,14 +37,8 @@ namespace LibraryApplication.View
         /// <param name="e"></param>
         private async void Loggin_Button_Click(object sender, RoutedEventArgs e)
         {
-            using (var redis = new RedisRepository())
-            {
-                redis.SetAsync(UserNameTextBox.Text, TimeSpan.FromMinutes(1));
-                Console.Write(redis.Get("name"));
-                
-                  
-            }
-                await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
+
+            await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
         }
     }
 }

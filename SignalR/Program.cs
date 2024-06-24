@@ -1,11 +1,13 @@
 using SignalR.Hubs;
+using SignalR.StartupConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
-
+builder.Services.AddControllers();
+builder.Services.AddRedisConnection(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
