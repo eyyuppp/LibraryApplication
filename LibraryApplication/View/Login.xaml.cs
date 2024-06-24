@@ -1,4 +1,5 @@
-﻿using LibraryApplication.Helper;
+﻿using DataAccess.Redis;
+using LibraryApplication.Helper;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Windows;
 
@@ -26,7 +27,7 @@ namespace LibraryApplication.View
                 }
                 else
                 {
-                    MessageBox.Show("Kullanıcı username veya password hatalı girdiniz");
+                    MessageBox.Show("Kullanıcı adı veya şifre hatalı girildi");
                 }
             });
         }
@@ -37,8 +38,14 @@ namespace LibraryApplication.View
         /// <param name="e"></param>
         private async void Loggin_Button_Click(object sender, RoutedEventArgs e)
         {
-
-            await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
+            using (var redis = new RedisRepository())
+            {
+                redis.SetAsync(UserNameTextBox.Text, TimeSpan.FromMinutes(1));
+                Console.Write(redis.Get("name"));
+                
+                  
+            }
+                await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
         }
     }
 }

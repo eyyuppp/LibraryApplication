@@ -24,14 +24,6 @@ namespace DataAccess.Redis
             }
         }
 
-        #region Singleton Section
-
-        public RedisRepository(RedisDatabaseEnum redisDatabaseEnum)
-        {
-            RedisDatabase = RedisConnectionObj.GetDatabase(redisDatabaseEnum);
-        }
-
-        #endregion
 
         /// <summary>
         /// Redis önbellekte tutulan veriyi getirir.
@@ -108,12 +100,9 @@ namespace DataAccess.Redis
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="expireTime"></param>
         public Task<bool> SetAsync(string key, string value, TimeSpan? expireTime = null)
         {
-            if (expireTime > TimeSpan.MinValue)
-                return RedisDatabase.StringSetAsync(key, value, expireTime);
-            return RedisDatabase.StringSetAsync(key, value);
+            return RedisDatabase.SetAddAsync(key, value);
         }
 
         /// <summary>
@@ -121,15 +110,12 @@ namespace DataAccess.Redis
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        /// <param name="expireTime"></param>
         public bool Set(string key, string value, TimeSpan? expireTime = null)
         {
-            if (expireTime > TimeSpan.MinValue)
-                return RedisDatabase.StringSet(key, value, expireTime);
             return RedisDatabase.StringSet(key, value);
         }
 
-       
+
         /// <summary>
         /// Anahtara göre var olup olmadığını döner
         /// </summary>
@@ -156,7 +142,7 @@ namespace DataAccess.Redis
             return (obj != null);
         }
 
-       
+
 
         /// <summary>
         /// Anahtara göre var olun önbelleği döner

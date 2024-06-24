@@ -26,7 +26,7 @@
                 </ListView.View>
             </ListView>
             <TextBox x:Name="Message" FontSize="20" HorizontalAlignment="Left" Margin="173,361,0,0" VerticalAlignment="Top" Width="428" Height="32" RenderTransformOrigin="0.5,-0.547" Background="White"/>
-            <ListBox x:Name="mesage_list" Margin="178,22,35,103" Background="#FF6865BF"/>
+            <ListBox x:Name="mesage_list" Margin="178,22,35,103" Background="#FF6865BF" SelectionChanged="mesage_list_SelectionChanged"/>
             <Image Source="../images/send.png" Width="30" Margin="619,358,37,51" RenderTransformOrigin="0.769,1.293" MouseLeftButtonDown="send_message">
                 <Image.RenderTransform>
                     <TransformGroup>
