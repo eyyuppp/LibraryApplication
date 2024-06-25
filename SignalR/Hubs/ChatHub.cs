@@ -1,4 +1,5 @@
 ﻿using Data.Entity;
+using DataAccess.Redis;
 using Microsoft.AspNetCore.SignalR;
 
 namespace SignalR.Hubs
@@ -11,7 +12,6 @@ namespace SignalR.Hubs
             new User {UserName = "kenan", Password="123",Photo = "../images/kenan.png"},
             new User {UserName = "aleyna",Password="123", Photo = "../images/aleyna.png"}
         };
-        private static readonly List<User> activeUsers = new();
         /// <summary>
         /// tek bir clienta mesaj gönderir
         /// </summary>
@@ -37,7 +37,13 @@ namespace SignalR.Hubs
                 await Clients.Caller.SendAsync("LoginResult", true);
                 var user = users.FirstOrDefault(x => x.UserName == userName);
                 user.Id = Context.ConnectionId;
-                activeUsers.Add(user);
+                using (var redis = new CacheRepository())
+                {
+                    redis.HSet("user" + user.UserName, "userName", user.UserName);
+                    redis.HSet("user" + user.UserName, "id", user.Id);
+                    redis.HSet("user" + user.UserName, "photo", user.Photo);
+                    redis.HSet("user" + user.UserName, "password", user.Password);
+                }
             }
             else
             {
@@ -57,7 +63,10 @@ namespace SignalR.Hubs
                 await Clients.Caller.SendAsync("LogOutResult", true);
                 var user = users.FirstOrDefault(x => x.UserName == userName);
                 user.Id = Context.ConnectionId;
-                activeUsers.Remove(user);
+                using (var redis = new CacheRepository())
+                {
+                    redis.DeleteByKey("user" + user.UserName);
+                }
             }
         }
         /// <summary>
@@ -66,7 +75,10 @@ namespace SignalR.Hubs
         /// <returns></returns>
         public async Task GetAllActiveUsers()
         {
-            await Clients.All.SendAsync("ActiveUsersResult", activeUsers);
+            using (var redis = new CacheRepository())
+            {
+                await Clients.All.SendAsync("ActiveUsersResult", redis.GetAllKeys);
+            }
         }
 
         //public async Task NotifyAllUsers()

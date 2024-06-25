@@ -5,7 +5,8 @@ namespace DataAccess.Redis
 {
     public class CacheRepository : ICacheRepository
     {
-        private readonly IConnectionMultiplexer _redisConnection =ConnectionMultiplexer.Connect("localhost:6379");
+        public static readonly string Domain = Environment.GetEnvironmentVariable("REDIS_URL");
+        private readonly IConnectionMultiplexer _redisConnection = ConnectionMultiplexer.Connect(Domain);
         private readonly IDatabase _cache;
         private TimeSpan ExpireTime => TimeSpan.FromMinutes(1);
         public CacheRepository()
@@ -68,11 +69,36 @@ namespace DataAccess.Redis
         {
             return _cache.KeyTimeToLive(key);
         }
+        /// <summary>
+        /// Önbellekte bulunan verilerin anahtar listesini getirir.
+        /// </summary>
+        /// <returns></returns>
+        public List<RedisKey> GetAllKeys()
+        {
+            var endPoint = _redisConnection.GetEndPoints(true).First();
+            var server = _redisConnection.GetServer(endPoint);
+            return server.Keys(_cache.Database, pattern: "*").ToList();
+        }
+        public bool HSet(string key, string field, string value)
+        {
+            return _cache.HashSet(key,field,value);
+        }
+
+        public Dictionary<string, string> HGetAll(string key)
+        {
+            var hashEntries = _cache.HashGetAll(key);
+            var result = new Dictionary<string, string>();
+            foreach (var entry in hashEntries)
+            {
+                result.Add(entry.Name, entry.Value);
+            }
+            return result;
+        }
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);
             GC.Collect();
         }
-
     }
 }
