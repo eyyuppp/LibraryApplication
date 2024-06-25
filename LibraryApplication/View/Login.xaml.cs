@@ -37,7 +37,10 @@ namespace LibraryApplication.View
         /// <param name="e"></param>
         private async void Loggin_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            using(var redis=new CacheRepository())
+            {
+                redis.SetValueAsync("userName", UserNameTextBox.Text);
+            }
             await ConnectionHelper.Connection.InvokeAsync("Login", UserNameTextBox.Text, PasswordBox.Password);
         }
     }

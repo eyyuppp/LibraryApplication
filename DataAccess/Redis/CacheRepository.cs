@@ -3,14 +3,13 @@ using System.Text.Json;
 
 namespace DataAccess.Redis
 {
-    public class CacheRepository:ICacheRepository
+    public class CacheRepository : ICacheRepository
     {
-        private readonly IConnectionMultiplexer _redisConnection;
+        private readonly IConnectionMultiplexer _redisConnection =ConnectionMultiplexer.Connect("localhost:6379");
         private readonly IDatabase _cache;
-        private TimeSpan ExpireTime => TimeSpan.FromDays(1);
-        public CacheRepository(IConnectionMultiplexer redisConection)
+        private TimeSpan ExpireTime => TimeSpan.FromMinutes(1);
+        public CacheRepository()
         {
-            _redisConnection = redisConection;
             _cache = _redisConnection.GetDatabase();
         }
         public async Task Clear(string key)
@@ -34,7 +33,7 @@ namespace DataAccess.Redis
             if (result.IsNull)
             {
                 result = JsonSerializer.SerializeToUtf8Bytes(action());
-                _cache.StringSet(key, result, ExpireTime);
+                _cache.StringSet(key, result);
             }
             return JsonSerializer.Deserialize<T>(result);
         }
@@ -57,7 +56,23 @@ namespace DataAccess.Redis
 
         public async Task<bool> SetValueAsync(string key, string value)
         {
-            return await _cache.StringSetAsync(key, value, ExpireTime);
+            return await _cache.StringSetAsync(key, value);
         }
+
+        public bool DeleteByKey(string key)
+        {
+            return _cache.KeyDelete(key);
+        }
+
+        public TimeSpan? GetKeyTime(string key)
+        {
+            return _cache.KeyTimeToLive(key);
+        }
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            GC.Collect();
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Redis
 {
-    public interface ICacheRepository
+    public interface ICacheRepository:IDisposable
     {
         Task<string> GetValueAsync(string key);
         Task<bool> SetValueAsync(string key, string value);
@@ -8,5 +8,7 @@
         T GetOrAdd<T>(string key, Func<T> action) where T : class;
         Task Clear(string key);
         void ClearAll();
+        public bool DeleteByKey(string key);
+        public TimeSpan? GetKeyTime(string key);
     }
 }

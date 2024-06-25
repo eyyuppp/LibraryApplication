@@ -1,4 +1,5 @@
 ﻿using Data.Entity;
+using DataAccess.Redis;
 using LibraryApplication.Helper;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Windows;
@@ -68,6 +69,10 @@ namespace LibraryApplication.View
         /// <param name="e"></param>
         private async void exit(object sender, RoutedEventArgs e)
         {
+            using (var redis=new CacheRepository())
+            {
+                redis.DeleteByKey(ConnectionHelper.LoggedUser.UserName);
+            }
             await ConnectionHelper.Connection.InvokeAsync("LogOut", ConnectionHelper.LoggedUser.UserName);
             await ConnectionHelper.Connection.SendAsync("GetAllActiveUsers");
             this.Close();
